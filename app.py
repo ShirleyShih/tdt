@@ -7,6 +7,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 import mysql.connector
 from mysql.connector import Error
+from pydantic import BaseModel
 from collections import Counter
 from typing import Optional
 import math
@@ -42,6 +43,24 @@ db_config = {
     'database': 'tdt'
 }
 
+class Attraction(BaseModel):
+     id: str
+     name: str
+     category: str
+     description: str
+     address: str
+     transport: str
+     mrt: str
+     lat: float
+     lng: float
+     images: list[str]
+
+# con = mysql.connector.connect(**db_config)
+# cursor = con.cursor(dictionary=True)
+# test = cursor.fetchall()
+# cursor.close()
+# con.close()
+
 @app.get("/api/attractions")
 async def apiattractions(page: Optional[int] = 0, keyword: Optional[str] = None):
     items_per_page = 12
@@ -63,6 +82,9 @@ async def apiattractions(page: Optional[int] = 0, keyword: Optional[str] = None)
             cursor.execute(query, (items_per_page, offset))
         
         result = cursor.fetchall()
+        # Split the images string into a list of URLs
+        for item in result:
+            item["images"] = item["images"].split(',')
 
         # Get the total count of filtered records for pagination
         if keyword:
@@ -99,12 +121,14 @@ async def get_attraction(attractionID: int):
         query = "SELECT * FROM attractions WHERE id = %s"
         cursor.execute(query, (attractionID,))
         result = cursor.fetchone()
+        # Split the images string into a list of URLs
+        result["images"] = result["images"].split(',')
 
         cursor.close()
         con.close()
 
         if result:
-            return result
+            return {"data": result}
         else:
             return {"error": True, "message": "Attraction not found"}
 
@@ -117,8 +141,7 @@ async def apimarts():
         con = mysql.connector.connect(**db_config)
         cursor = con.cursor()
 
-        query = "SELECT mrt FROM attractions WHERE mrt IS NOT NULL"
-        cursor.execute(query)
+        cursor.execute("SELECT mrt FROM attractions WHERE mrt IS NOT NULL")
         result = cursor.fetchall()
 
         mrt_counts = Counter(item[0] for item in result)
