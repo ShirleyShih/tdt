@@ -14,7 +14,7 @@ import math
 
 app=FastAPI()
 
-# app.mount("/static", StaticFiles(directory="static"))
+app.mount("/static", StaticFiles(directory="static"))
 
 # templates = Jinja2Templates(directory="templates")
 
