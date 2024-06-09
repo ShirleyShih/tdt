@@ -3,15 +3,13 @@ body{
     font-style: normal;
 }
 
-.freeze-top {
+/* navigation */
+.navigation-section{
     position: sticky;
     top: 0;
     z-index: 1000;
     background-color: #FFFFFF;
-}
 
-/* navigation */
-.navigation-section{
     height: 54px;
     display: flex;
     justify-content: center;
