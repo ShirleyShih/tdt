@@ -108,6 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const newatbox = document.createElement('div');
             newatbox.className=('attractions-box');
 
+            // Create an <a> tag with href to the attraction page
+            const attractionLink = document.createElement('a');
+            attractionLink.href = `/attraction/${attraction.id}`;
+
             const newatmain = document.createElement('div');
             newatmain.className=('attractions-main');
 
@@ -131,12 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
             newatbottomtext2.textContent = attraction["category"];
 
             atframe.appendChild(newatbox);
-                newatbox.appendChild(newatmain);
-                    newatmain.appendChild(newatimg);
-                    newatmain.appendChild(newattitle);
-                newatbox.appendChild(newatbottom);
-                    newatbottom.appendChild(newatbottomtext1);
-                    newatbottom.appendChild(newatbottomtext2);
+            newatbox.appendChild(attractionLink); // Append <a> tag to the attraction box
+            attractionLink.appendChild(newatmain);
+            newatmain.appendChild(newatimg);
+            newatmain.appendChild(newattitle);
+            newatbox.appendChild(newatbottom);
+            newatbottom.appendChild(newatbottomtext1);
+            newatbottom.appendChild(newatbottomtext2);
         });
     }
 
@@ -184,9 +189,3 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchAttractionsByMRTName(clickedMRTName,nextPage);
     });
 });
-
-
-
-
-
-
