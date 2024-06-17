@@ -4,8 +4,93 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attraction</title>
+  <link href="/static/styles.css" rel="stylesheet">
+  <link href="/static/attraction.css" rel="stylesheet">
+  <script src="/static/attraction.js"></script>
+  <!-- reset CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 </head>
 <body>
-  
+  <!-- template -->
+  <div class="body">
+    <div class="navigation-section">
+      <div class="div">
+        <div class="title" onclick="backtohome();">台北一日遊</div>
+        <div class="container">
+          <div class="botton">預定行程</div>
+          <div class="botton">登入/註冊</div>
+        </div>
+      </div>
+    </div>
+    <hr class="separator-nav">
+    <!-- template -->
+
+    <div class="desktop-attractions">
+      <div class="attractions-section">
+        <div class="picture-current">
+          <div class="picture-all">
+            <!-- This will hold the images -->
+          </div>
+          <img onclick="changeSlide(-1);" src="/static/img/left arrow.png" class="previmg">
+          <img onclick="changeSlide(1);" src="/static/img/right arrow.png" class="nextimg">
+          <div class="button-circle">
+            <!-- This will hold the circle -->
+          </div>
+        </div>
+        <div class="profile">
+          <!-- attraction name, category & mrt will be fetch here -->
+          <div class="profile-name"></div>
+          <div class="profile-text"></div>
+          <form>
+            <div class="booking-form">
+              <div class="booking-title">訂購導覽行程</div>
+              <div class="profile-text">以此景點為中心的一日行程，帶您探索城市角落故事</div>
+              <div>
+                <span class="booking-title">選擇日期：</span>
+                <input type="date" placeholder="yyyy-mm-dd">
+              </div>
+              <div class="select-time">
+                <div class="booking-title">選擇時間：</div>
+                <label>
+                  <input type="radio" name="time" value="morning" id="morning" checked>
+                  <div class="profile-text">上半天</div>
+                </label>
+                <label>
+                  <input type="radio" name="time" value="afternoon" id="afternoon">
+                  <div class="profile-text">下半天</div>
+                </label>
+              </div>
+              <div>
+                <span class="booking-title">導覽費用：</span>
+                <span class="profile-text">新台幣</span>
+                <span class="profile-text" id="fee"></span>
+                <span class="profile-text">元</span>
+              </div>
+              <div class="booking-button"><span class="booking-button-text">開始預約行程</span></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <hr class="separator-content">
+
+    <div class="desktop-infros">
+      <div class="infros-frame">
+        <!-- infros will be fetched here -->
+        <div class="infros-text" id="infros-descr"></div>
+        <div class="infros-title">景點地址：</div>
+        <div class="infros-text" id="infros-address"></div>
+        <div class="infros-title">交通方式：</div>
+        <div class="infros-text" id="infros-transport"></div>
+      </div>
+    </div>
+
+    <!-- template -->
+    <div class="footer">
+      <div class="footer-text">COPYRIGHT © 2021 台北一日遊</div>
+    </div>
+    <!-- template -->
+  </div>
 </body>
 </html>
