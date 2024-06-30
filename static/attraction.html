@@ -4,25 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Attraction</title>
-  <link href="/static/styles.css" rel="stylesheet">
-  <link href="/static/attraction.css" rel="stylesheet">
-  <script src="/static/attraction.js"></script>
+  <link href="/static/css/index.css" rel="stylesheet">
+  <link href="/static/css/attraction.css" rel="stylesheet">
+  <script src="/static/js/user.js"></script>
+  <script src="/static/js/attraction.js"></script>
   <!-- reset CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 </head>
 <body>
-  <!-- template -->
   <div class="body">
+    <!-- template -->
+    <div class="form-signinup">
+      <div class="content-signinup">
+          <div class="content-signinup-top"></div>
+          <div class="content-signinup-main">
+            <img onclick="close_signinup();" src="/static/img/icon_close.png" class="close-signinup">
+            <div class="signinup-title">登入會員帳號</div>
+            <!-- <form action="/api/user" method="post" onsubmit="return validateForm()"> -->
+            <form id="signinup-form">
+                <input type="text" id="name" name="name" placeholder="輸入姓名">
+                <input type="email" id="email" name="email" placeholder="輸入電子信箱" required>
+                <input type="password" id="password" placeholder="輸入密碼" name="password" required>
+                <button type="submit" id="submit_signinup">登入帳戶</button>
+            </form>
+            <div class="signinup-message"></div>
+            <div class="redirect-signinup">還沒有帳戶？點此註冊</div>
+          </div>
+      </div>
+    </div>
+    
     <div class="navigation-section">
       <div class="div">
         <div class="title" onclick="backtohome();">台北一日遊</div>
         <div class="container">
-          <div class="botton">預定行程</div>
-          <div class="botton">登入/註冊</div>
+          <div class="button_booking">預定行程</div>
+          <div class="button_member" onclick="open_signinup();">登入/註冊</div>
         </div>
       </div>
     </div>
-    <hr class="separator-nav">
     <!-- template -->
 
     <div class="desktop-attractions">
@@ -90,6 +109,7 @@
     <div class="footer">
       <div class="footer-text">COPYRIGHT © 2021 台北一日遊</div>
     </div>
+    <script src="/static/js/user.js"></script>
     <!-- template -->
   </div>
 </body>
