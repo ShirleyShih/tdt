@@ -1,18 +1,13 @@
 import json
 import mysql.connector
+from dbconfig import db_config # connect to dbconfig.py
 
 with open("C:/Users/phoen/OneDrive/Work/wehelp/tdt/data/taipei-attractions.json", "r", encoding="utf-8") as response:
     data=json.load(response)
 clist=data["result"]["results"]
 # print(clist)
 
-con = mysql.connector.connect(
-    user="root",
-    password="",
-    host="localhost",
-    database="tdt"
-)
-
+con = mysql.connector.connect(**db_config)
 cursor = con.cursor()
 
 # Create table if it doesn't exist
