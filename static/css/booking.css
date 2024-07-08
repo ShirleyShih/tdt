@@ -1,0 +1,126 @@
+.body-booking{
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center horizontally */
+    gap: 10px;
+}
+.section-booking-frame, .section-booking-frame1, .buy-button-frame{
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center horizontally */
+    padding: 20px;
+    gap: 10px;
+}
+.buy-button-frame{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.cart-form{
+    width: 100%;
+}
+.booking-headline, .booking-headline-none, .booking-cart-text{
+    font-size: 19px;
+    font-weight: 700px;
+    color: #666666;
+}
+.booking-cart-title, .booking-cart-title{
+    font-size: 16px;
+    font-weight: 400px;
+}
+.booking-headline-none{
+    display: none;
+}
+.booking-cart-text{
+    font-size: 16px; 
+}
+.separator-content{
+    border: 1px solid #E8E8E8;
+    margin: 0;
+}
+.booking-attraction-frame{
+    height: 200px;
+    display: flex;
+    position: relative;
+}
+.booking-attraction-content{
+    display: flex;
+    flex-direction: column;
+    gap:22px;
+    padding-left: 22px;
+}
+.booking-attraction-img{
+    width: 250px;
+    object-fit: over;
+}
+.booking-attraction-name{
+    font-size: 16px;
+    font-weight: 700;
+    color: #448899;
+}
+.booking-attraction-date, .booking-attraction-time, .booking-attraction-fee, .booking-attraction-address{
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+}
+.booking-attraction-delete{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.booking-cart-input{
+    width: 200px;
+    height: 38px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    font-size: 16px;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+.submit_confirm{
+    width: 173px;
+    height: 36px;
+    border-radius: 5px;
+    border: transparent;
+    background-color: #448899;
+    color: #FFFFFF;
+    font-size: 19px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+@media (max-width:1200px){
+    .body-booking{
+        width: calc(100% - 20px);
+    }
+    .section-booking-frame, .section-booking-frame1, .buy-button-frame{
+        width: 90%;
+    }
+    .section-booking-frame1{
+        height: 460px;
+    }
+    .booking-attraction-frame{
+        width: 100%;
+        flex-direction: column;
+        position: static;
+    }
+    .booking-attraction-content{
+        padding-left: 0;
+        padding-top: 10px;
+    }
+    .booking-attraction-img{
+        width: 340px;
+        height: 200px;
+    }
+    .booking-attraction-delete{
+        position: static;
+        align-self: flex-end; /* 置左 */
+        padding-top: 10px;
+    }
+}

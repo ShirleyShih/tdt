@@ -1,8 +1,3 @@
-///////////// back to home page
-function backtohome() {
-    window.location.href = '/';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const id = window.location.pathname.split('/').pop(); // Extract ID from URL
 
@@ -119,4 +114,48 @@ function changeSlide(n) {
 // Function to navigate directly to a specific slide
 function currentSlide(n) {
     showSlide(slideIndex = n);
+}
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // await checkSignInStatus(); from user.js
+    document.querySelector('#addcart-form').addEventListener('submit', addcartFormSubmit);
+});
+
+async function addcartFormSubmit(event){
+    event.preventDefault(); // Prevent default form submission
+
+    const attractionid = window.location.pathname.split('/').pop(); // Extract ID from URL
+    const dateInput = document.querySelector('#date');
+    const feeInput = document.querySelector('#fee');
+    const timeInput = document.querySelector('input[name="time"]:checked');
+    console.log(parseInt(attractionid));
+    console.log(feeInput.textContent);
+    console.log(timeInput.value);
+
+    const token = localStorage.getItem('token');
+    if(token){
+        const response = await fetch('/api/booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token // Add the Authorization header
+            },
+            body: JSON.stringify({
+                attractionId: parseInt(attractionid),
+                date: dateInput.value,
+                time: timeInput.value,
+                price: parseInt(feeInput.textContent)
+            })
+        });
+
+        const data = await response.json();
+        if(data.ok){
+            window.location.href = '/booking';
+        }else {
+            console.log(data.message);
+        }
+    }else{
+        open_signinup();
+    }
 }

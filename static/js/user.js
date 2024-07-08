@@ -1,3 +1,8 @@
+///////////// back to home page
+function backtohome() {
+    window.location.href = '/';
+}
+
 function open_signinup(){
     document.querySelector('.form-signinup').style.display = 'flex';
 }
@@ -22,7 +27,7 @@ async function checkSignInStatus() {
     try {
         const response = await fetch('/api/user/auth', {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token // Add the Authorization header
             }
         });
 
@@ -86,11 +91,6 @@ async function handleFormSubmit(event) {
     } else {
         // Login form submission logic
         try {
-            // console.log({
-            //     email: emailInput.value,
-            //     password: passwordInput.value
-            // }); // Log form values
-
             const response = await fetch('/api/user/auth', {
                 method: 'PUT',
                 headers: {
@@ -136,5 +136,19 @@ function redirectSigninup(event) {
         signinup_button.textContent = "登入帳戶";
         nameInput.style.display = 'none';
         nameInput.removeAttribute('required');
+    }
+}
+
+
+
+
+function redirect_booking() {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (token) {
+        window.location.href = '/booking';
+    }
+    else{
+        open_signinup();
     }
 }

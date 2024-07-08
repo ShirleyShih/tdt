@@ -22,10 +22,10 @@
             <div class="signinup-title">登入會員帳號</div>
             <!-- <form action="/api/user" method="post" onsubmit="return validateForm()"> -->
             <form id="signinup-form">
-                <input type="text" id="name" name="name" placeholder="輸入姓名">
-                <input type="email" id="email" name="email" placeholder="輸入電子信箱" required>
-                <input type="password" id="password" placeholder="輸入密碼" name="password" required>
-                <button type="submit" id="submit_signinup">登入帳戶</button>
+                <input type="text" id="name" name="name" class="signinup_name" placeholder="輸入姓名">
+                <input type="email" id="email" name="email" class="signinup_email" placeholder="輸入電子信箱" required>
+                <input type="password" id="password" name="password" class="signinup_password" placeholder="輸入密碼" required>
+                <button type="submit" id="submit_signinup" class="submit_signinup">登入帳戶</button>
             </form>
             <div class="signinup-message"></div>
             <div class="redirect-signinup">還沒有帳戶？點此註冊</div>
@@ -37,7 +37,7 @@
       <div class="div">
         <div class="title" onclick="backtohome();">台北一日遊</div>
         <div class="container">
-          <div class="button_booking">預定行程</div>
+          <div class="button_booking" onclick="redirect_booking();">預定行程</div>
           <div class="button_member" onclick="open_signinup();">登入/註冊</div>
         </div>
       </div>
@@ -60,13 +60,13 @@
           <!-- attraction name, category & mrt will be fetch here -->
           <div class="profile-name"></div>
           <div class="profile-text"></div>
-          <form>
+          <form id="addcart-form">
             <div class="booking-form">
               <div class="booking-title">訂購導覽行程</div>
               <div class="profile-text">以此景點為中心的一日行程，帶您探索城市角落故事</div>
               <div>
                 <span class="booking-title">選擇日期：</span>
-                <input type="date" placeholder="yyyy-mm-dd">
+                <input type="date" id="date" name="date" placeholder="yyyy-mm-dd" required>
               </div>
               <div class="select-time">
                 <div class="booking-title">選擇時間：</div>
@@ -85,7 +85,7 @@
                 <span class="profile-text" id="fee"></span>
                 <span class="profile-text">元</span>
               </div>
-              <div class="booking-button"><span class="booking-button-text">開始預約行程</span></div>
+              <button class="addcart-button" id="addcart-button">開始預約行程</button>
             </div>
           </form>
         </div>
