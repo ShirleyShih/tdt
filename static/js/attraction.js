@@ -1,3 +1,8 @@
+///////////// back to home page
+function backtohome() {
+    window.location.href = '/';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const id = window.location.pathname.split('/').pop(); // Extract ID from URL
 
