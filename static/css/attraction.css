@@ -151,24 +151,17 @@ label {
     margin-right: 10px; /* Add some space between labels if needed */
 }
 
-.booking-button{
+.addcart-button{
     width: 154px;
     height: 36px;
     border-radius: 5px;
+    border: transparent;
     background-color: #448899;
-
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center vertically */
-}
-.booking-button-text{
-    color: white;
+    color: #FFFFFF;
     font-size: 19px;
     font-weight: 400;
-    text-align: center;
-    margin: 0;
-    line-height: 19px;
-}
+    cursor: pointer;
+ }
 
 .infros-frame{
     padding: 15px;

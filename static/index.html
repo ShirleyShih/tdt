@@ -19,10 +19,10 @@
           <div class="signinup-title">登入會員帳號</div>
           <!-- <form action="/api/user" method="post" onsubmit="return validateForm()"> -->
           <form id="signinup-form">
-              <input type="text" id="name" name="name" placeholder="輸入姓名">
-              <input type="email" id="email" name="email" placeholder="輸入電子信箱" required>
-              <input type="password" id="password" placeholder="輸入密碼" name="password" required>
-              <button type="submit" id="submit_signinup">登入帳戶</button>
+              <input type="text" id="name" name="name" class="signinup_name" placeholder="輸入姓名">
+              <input type="email" id="email" name="email" class="signinup_email" placeholder="輸入電子信箱" required>
+              <input type="password" id="password" name="password" class="signinup_password" placeholder="輸入密碼" required>
+              <button type="submit" id="submit_signinup" class="submit_signinup">登入帳戶</button>
           </form>
           <div class="signinup-message"></div>
           <div class="redirect-signinup">還沒有帳戶？點此註冊</div>
@@ -34,7 +34,7 @@
     <div class="div">
       <div class="title">台北一日遊</div>
       <div class="container">
-        <div class="button_booking">預定行程</div>
+        <div class="button_booking" onclick="redirect_booking();">預定行程</div>
         <div class="button_member" onclick="open_signinup();">登入/註冊</div>
       </div>
     </div>

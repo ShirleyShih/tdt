@@ -250,4 +250,92 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 @app.get("/api/user/auth")
 async def get_user(current_user: dict = Depends(get_current_user)):
+    print(current_user)
     return {"data": current_user}
+
+
+class BookingAdd(BaseModel):
+    attractionId: int
+    date: str
+    time: str
+    price: int
+
+@app.post("/api/booking")
+async def create_booking(response: Response, bookingadd:BookingAdd, current_user: dict = Depends(get_current_user)):
+    con = mysql.connector.connect(**db_config)
+    cursor = con.cursor()
+    try:
+        if not current_user:
+            response.status_code=403
+            return {"error":True,"message":"未登入系統，拒絕存取"}
+
+        cursor.execute("select * from booking where memberid=%s", (current_user["id"],))
+        existing_booking = cursor.fetchone()
+        if existing_booking:
+            cursor.execute("update booking set attractionid=%s, date=%s, time=%s, price=%s where memberid=%s", (bookingadd.attractionId, bookingadd.date, bookingadd.time, bookingadd.price, current_user["id"]))
+        else:
+            cursor.execute("insert into booking(memberid, attractionid, date, time, price) values(%s,%s,%s,%s,%s)", (current_user["id"], bookingadd.attractionId, bookingadd.date, bookingadd.time, bookingadd.price))
+        con.commit()
+        response.status_code=200
+        return {"ok":True}
+    except Error as e:
+        response.status_code=500
+        return {"error":True,"message":"伺服器內部錯誤"}
+    finally:
+        cursor.close()
+        con.close()
+
+@app.get("/api/booking")
+async def getbooking(current_user: dict = Depends(get_current_user)):
+    try:
+        if current_user:
+            con = mysql.connector.connect(**db_config)
+            cursor = con.cursor()
+
+            # fetch the last record
+            cursor.execute("SELECT * FROM booking WHERE memberid=%s order by id desc", (current_user["id"],))
+            booking = cursor.fetchone()
+            if not booking:
+                return {"error": True, "message": "購物車是空的"}
+            else:
+                cursor.execute("SELECT id, name, address, images FROM attractions WHERE id=%s", (booking[2],))
+                attraction = cursor.fetchone()
+                
+                cursor.close()
+                con.close()
+
+                if booking:
+                    data = {
+                            "attraction": {
+                                "id": attraction[0],
+                                "name": attraction[1],
+                                "address": attraction[2],
+                                "image": attraction[3].split(',')[0]
+                            },
+                            "date": booking[3],
+                            "time": booking[4],
+                            "price": booking[5]
+                        }
+                    # print(data)
+                    return {"data":data}
+        else:
+            return {"error": True, "message": "未登入系統，拒絕存取"}
+
+    except Error as e:
+        return {"error": True, "message": str(e)}
+    
+@app.delete("/api/booking")
+def delete_booking(current_user: User = Depends(get_current_user)):
+    try:
+        if current_user:
+            con = mysql.connector.connect(**db_config)
+            cursor = con.cursor()
+            cursor.execute("DELETE FROM booking WHERE memberid = %s", (current_user["id"],))
+            con.commit()
+            cursor.close()
+            con.close()
+            return {"ok":True}
+        else:
+            return {"error": True, "message": "未登入系統，拒絕存取"}
+    except Error as e:
+        return {"error": True, "message": str(e)}
