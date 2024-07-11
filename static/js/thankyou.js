@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+function setSignInButton(text, onClick) {
+    const button_member = document.querySelector('.button_member');
+    button_member.textContent = text;
+    button_member.onclick = onClick;
+}
+
 function redirect_booking() {
     const token = localStorage.getItem('token');
     console.log(token);
