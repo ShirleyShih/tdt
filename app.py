@@ -16,6 +16,8 @@ import math
 import jwt
 from fastapi.security import OAuth2PasswordBearer
 import datetime
+import requests
+import uuid
 
 app=FastAPI()
 
@@ -339,3 +341,94 @@ def delete_booking(current_user: User = Depends(get_current_user)):
             return {"error": True, "message": "未登入系統，拒絕存取"}
     except Error as e:
         return {"error": True, "message": str(e)}
+    
+
+class Contact(BaseModel):
+    name: str
+    email: str
+    phone: str
+
+class Attraction(BaseModel):
+    id: int
+    name: str
+    address: str
+    image: str
+
+class Trip(BaseModel):
+    attraction: Attraction
+    date: str
+    time: str
+
+class OrderDetail(BaseModel):
+    price: int
+    trip: Trip
+    contact: Contact
+
+class OrderRequest(BaseModel):
+    prime: str
+    order: OrderDetail
+
+@app.post("/api/order")
+async def create_order(order_request: OrderRequest, current_user: User = Depends(get_current_user)):
+    if not current_user:
+        return {"error":True,"message":"未登入系統，拒絕存取"}
+
+    print(order_request)
+    if order_request:
+        orderno=str(uuid.uuid4())
+        con = mysql.connector.connect(**db_config)
+        cursor = con.cursor()
+        cursor.execute("insert into order_db(memberid,orderno,status) values(%s,%s,%s)",(current_user["id"],orderno,"UNPAID"))
+        con.commit()
+        cursor.close()
+        con.close()
+
+        # Sending a request to Tappay
+        try:
+            response = requests.post(
+                "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime",
+                headers={
+                    "content-type": "application/json",
+                    "x-api-key": "partner_lZsurJ44kGoWnH1GG9uNci0g6gm4W0nWvY48BFI6nUFntPLiPxkruktD"
+                },
+                json={
+                    "partner_key": "partner_lZsurJ44kGoWnH1GG9uNci0g6gm4W0nWvY48BFI6nUFntPLiPxkruktD",
+                    "prime": order_request.prime,
+                    "amount": order_request.order.price,
+                    "merchant_id": "tppf_cyss_GP_POS_1",
+                    "details": "TapPay Test",
+                    "cardholder": {
+                        "phone_number": order_request.order.contact.phone,
+                        "name": order_request.order.contact.name,
+                        "email": order_request.order.contact.email,
+                        "zip_code": "",
+                        "address": "",
+                        "national_id": ""
+                    },
+                    "remember": True
+                }
+            )
+            response.raise_for_status()
+            result=response.json()
+            # print(result)
+
+            con = mysql.connector.connect(**db_config)
+            cursor = con.cursor()
+            cursor.execute("insert into payment(orderno,status,msg) values(%s,%s,%s)",(orderno,result['status'],result['msg']))
+            con.commit()
+            cursor.close()
+            con.close()
+
+            if result['status']==0:
+                con = mysql.connector.connect(**db_config)
+                cursor = con.cursor()
+                cursor.execute("update order_db set status=%s where orderno=%s",("PAID",orderno))
+                cursor.execute("delete from booking where memberid = %s", (current_user["id"],))
+                con.commit()
+                cursor.close()
+                con.close()
+                return {"data": {"number":orderno,"payment":{"status":0,"message":"付款成功"}}}
+            else:
+                return {"error":True,"message":"訂單建立失敗，輸入不正確或其他原因"}
+        except Error as e:
+            return {"error":True,"message":"伺服器內部錯誤"}

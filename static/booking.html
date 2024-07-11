@@ -9,8 +9,8 @@
   <script src="/static/js/index.js"></script>
   <!-- <script src="/static/js/user.js"></script> -->
   <script src="/static/js/booking.js"></script>
-   <!-- reset CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <!-- reset CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 </head>
 <body>
   <!-- template -->
@@ -38,7 +38,7 @@
       <div class="title" onclick="backtohome();">台北一日遊</div>
       <div class="container">
         <div class="button_booking">預定行程</div>
-        <div class="button_member" onclick="open_signinup();">登入/註冊</div>
+        <div class="button_member">登出系統</div>
       </div>
     </div>
   </div>
@@ -83,17 +83,17 @@
 
       <div class="section-booking-frame">
         <div class="booking-headline">信用卡付款資訊</div>
-        <div>
-          <span class="booking-cart-title">卡片號碼：</span>
-          <input type="password" class="booking-cart-input" placeholder="**** **** **** ****" require>
+        <div class="form-group card-number-group">
+          <label for="card-number" class="control-label">卡片號碼：</label>
+          <div class="form-control card-number"></div>
         </div>
-        <div>
-          <span class="booking-cart-title">過期時間：</span>
-          <input type="text" id="expiry-date" name="expiry-date" class="booking-cart-input" placeholder="MM / YY" maxlength="5" require>
+        <div class="form-group expiration-date-group">
+          <label for="expiration-date" class="control-label">過期時間：</label>
+          <div class="form-control expiration-date" id="tappay-expiration-date"></div>
         </div>
-        <div>
-          <span class="booking-cart-title">驗證密碼：</span>
-          <input type="text" class="booking-cart-input" placeholder="CVV" maxlength="3" required>
+        <div class="form-group ccv-group">
+          <label for="ccv" class="control-label">驗證密碼：</label>
+          <div class="form-control ccv"></div>
         </div>
       </div>
       <hr class="separator-content">
@@ -111,6 +111,9 @@
   </div>
   <!-- <script src="/static/js/user.js"></script> -->
   <script src="/static/js/booking.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.18.0"></script>
+  <script src="/static/js/payment.js"></script>
   <!-- template -->
 </body>
 </html>
