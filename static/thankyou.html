@@ -4,8 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thank You</title>
+  <link href="/static/css/index.css" rel="stylesheet">
+  <script src="/static/js/thankyou.js"></script>
+  <!-- reset CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <style>
+    .thankyou-frame{
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+      gap: 10px;
+      padding: 10px;
+      font-size: 19px;
+      font-weight: 700;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
+  <!-- template -->
+  <div class="form-signinup">
+    <div class="content-signinup">
+        <div class="content-signinup-top"></div>
+        <div class="content-signinup-main">
+          <!-- <img onclick="close_signinup();" src="/static/img/icon_close.png" class="close-signinup"> -->
+          <div class="signinup-title">登入會員帳號</div>
+          <!-- <form action="/api/user" method="post" onsubmit="return validateForm()"> -->
+          <form id="signinup-form">
+              <input type="text" id="name" name="name" class="signinup_name" placeholder="輸入姓名">
+              <input type="email" id="email" name="email" class="signinup_email" placeholder="輸入電子信箱" required>
+              <input type="password" id="password" name="password" class="signinup_password" placeholder="輸入密碼" required>
+              <button type="submit" id="submit_signinup" class="submit_signinup">登入帳戶</button>
+          </form>
+          <div class="signinup-message"></div>
+          <div class="redirect-signinup">還沒有帳戶？點此註冊</div>
+        </div>
+    </div>
+  </div>
   
+  <div class="navigation-section">
+    <div class="div">
+      <div class="title" onclick="backtohome();">台北一日遊</div>
+      <div class="container">
+        <div class="button_booking" onclick="redirect_booking();">預定行程</div>
+        <div class="button_member">登出系統</div>
+      </div>
+    </div>
+  </div>
+  <!-- template -->
+  
+  <div class="thankyou-frame">
+    <div>行程預定成功！</div>
+    <div id="orderNumberDisplay"></div>
+  </div>
+
+  <!-- template -->
+  <div class="footer">
+    <div class="footer-text">COPYRIGHT © 2021 台北一日遊</div>
+  </div>
+  <!-- template -->
 </body>
 </html>

@@ -26,7 +26,7 @@
     font-weight: 700px;
     color: #666666;
 }
-.booking-cart-title, .booking-cart-title{
+.booking-cart-title, .control-label{
     font-size: 16px;
     font-weight: 400px;
 }
@@ -72,7 +72,8 @@
     top: 0px;
     right: 0px;
 }
-.booking-cart-input{
+.booking-cart-input, .form-control.card-number,
+.form-control.expiration-date, .form-control.ccv{
     width: 200px;
     height: 38px;
     border-radius: 5px;
@@ -93,6 +94,17 @@
     font-size: 19px;
     font-weight: 400;
     cursor: pointer;
+}
+
+/* adjust input field css  */
+.form-group {
+    display: flex;
+    align-items: center;
+}
+.form-group label {
+    margin-right: 5px;
+    /* min-width: 100px; */
+    text-align: left;
 }
 
 @media (max-width:1200px){

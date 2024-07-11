@@ -2,8 +2,6 @@ function backtohome() {
     window.location.href = '/';
 }
 
-document.querySelector('.button_member').textContent = "登出系統";
-
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const token = localStorage.getItem('token');
@@ -20,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         if (!userResponse.ok) {
-            throw new Error('Failed to fetch user');
+            window.location.href = '/';
         }
 
         const currentUser = await userResponse.json();

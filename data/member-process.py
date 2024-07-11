@@ -25,6 +25,24 @@ cursor.execute("""
     )
 """)
 
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS order_db (
+        id bigint primary key auto_increment,
+        memberid bigint not null,
+        orderno varchar(255) not null,
+        status varchar(255) not null
+    )
+""")
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS payment (
+        id bigint primary key auto_increment,
+        orderno varchar(255) not null,
+        status varchar(255) not null,
+        msg varchar(255) not null
+    )
+""")
+
 # cursor.execute("delete from attractions")
 con.commit()
 cursor.close()
